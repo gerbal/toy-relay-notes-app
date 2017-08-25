@@ -17,6 +17,29 @@ import TodoTextInput from './TodoTextInput';
 
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
+import { StyleSheet, css } from 'aphrodite';
+
+const styles = StyleSheet.create({
+  red: {
+    backgroundColor: 'red',
+  },
+
+  blue: {
+    backgroundColor: 'blue',
+  },
+
+  hover: {
+    ':hover': {
+        backgroundColor: 'red',
+      },
+  },
+
+  small: {
+    '@media (max-width: 600px)': {
+        backgroundColor: 'red',
+      },
+  },
+});
 
 class TodoApp extends React.Component {
   _handleTextInputSave = text => {
@@ -30,23 +53,24 @@ class TodoApp extends React.Component {
     const hasTodos = this.props.viewer.totalCount > 0;
     return (
       <div>
-        <section className="todoapp">
-          <header className="header">
-            <h1>todos</h1>
-            <TodoTextInput
-              autoFocus={true}
-              className="new-todo"
-              onSave={this._handleTextInputSave}
-              placeholder="What needs to be done?"
-            />
-          </header>
-          <TodoList viewer={this.props.viewer} />
-          {hasTodos &&
-            <TodoListFooter
-              todos={this.props.viewer.todos}
-              viewer={this.props.viewer}
-            />}
-        </section>
+      <div>
+      <span className={css(styles.red)}>
+          This is red.
+      </span>
+      <span className={css(styles.hover)}>
+          This turns red on hover.
+      </span>
+      <span className={css(styles.small)}>
+          This turns red when the browser is less than 600px width.
+      </span>
+      <span className={css(styles.red, styles.blue)}>
+          This is blue.
+      </span>
+      <span className={css(styles.blue, styles.small)}>
+          This is blue and turns red when the browser is less than
+          600px width.
+      </span>
+  </div>
       </div>
     );
   }
