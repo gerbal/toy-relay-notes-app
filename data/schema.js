@@ -64,7 +64,7 @@ const GraphQLNote = new GraphQLObjectType({
     },
     userName: {
       type: GraphQLString,
-      resolve: (obj) => obj.timestamp,
+      resolve: (obj) => obj.userName,
     },
   },
   interfaces: [nodeInterface],
@@ -117,6 +117,7 @@ const GraphQLAddNoteMutation = mutationWithClientMutationId({
   name: 'AddNote',
   inputFields: {
     text: { type: new GraphQLNonNull(GraphQLString) },
+    timestamp: { type: new GraphQLNonNull(GraphQLString) },
   },
   outputFields: {
     noteEdge: {
@@ -134,8 +135,8 @@ const GraphQLAddNoteMutation = mutationWithClientMutationId({
       resolve: () => getViewer(),
     },
   },
-  mutateAndGetPayload: ({text}) => {
-    const localNoteId = addNote(text);
+  mutateAndGetPayload: ({text, timestamp}) => {
+    const localNoteId = addNote(text, timestamp);
     return {localNoteId};
   },
 });

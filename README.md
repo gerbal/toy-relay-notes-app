@@ -1,9 +1,15 @@
-# Relay TodoMVC
+# Notes Chat App
+
+Most of this app is adapted from the [TodoMVC Modern Example](https://github.com/relayjs/relay-examples/tree/master/todo-modern) from the Relay team.
+
+This project uses a simple in memory GraphQL datastore, as such data will not be presisted between server restarts.
 
 ## Installation
 
+Use Yarn if you want to instead.
+
 ```
-npm install
+npm install 
 ```
 
 ## Running
@@ -35,14 +41,10 @@ npm run build
 npm start
 ```
 
+## Testing
+
+That's something for tomorrow, ain't it. 
+
 ## License
 
-    This file provided by Facebook is for non-commercial testing and evaluation
-    purposes only.  Facebook reserves all rights not expressly granted.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-    FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
-    ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+All code used here is potentially covered and encumbered by the terms of the [Facebook RelayJS Example license](https://github.com/relayjs/relay-examples/blob/master/LICENSE.md). And as such should not be used for commercial purposes. 

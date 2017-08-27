@@ -35,7 +35,7 @@ export default class ChatTextInput extends React.Component {
     text: this.props.initialValue || '',
   };
   componentDidMount() {
-    ReactDOM.findDOMNode(this).focus();
+    ReactDOM.findDOMNode(this.textInput).focus();
   }
   _commitChanges = () => {
     const newText = this.state.text.trim();
@@ -68,6 +68,7 @@ export default class ChatTextInput extends React.Component {
     return (
       <div className={css(styles.chatInput)}>
         <input
+          ref={(input) => { this.textInput = input; }}
           className={css(styles.textInput)}
           onBlur={this._handleBlur}
           onChange={this._handleChange}

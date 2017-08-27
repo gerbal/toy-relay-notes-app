@@ -9,12 +9,14 @@ const styles = StyleSheet.create({
     marginTop: '0.4rem',
     flex: '1 1 auto',
     overflowY: 'scroll',
+    display: 'flex'
   },
   chatListScoll: {
     minHeight: 'min-content',
     display: 'flex',
     justifyContent: 'flex-end',
     flexDirection: 'column',
+    flex: '1'
   },
 });
 

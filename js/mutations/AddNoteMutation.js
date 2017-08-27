@@ -12,6 +12,8 @@ const mutation = graphql`
         cursor
         node {
           id
+          timestamp
+          userName
           text
         }
       }
@@ -37,6 +39,7 @@ let tempID = 0;
 function commit(
   environment,
   text,
+  timestamp,
   user
 ) {
   return commitMutation(
@@ -46,6 +49,7 @@ function commit(
       variables: {
         input: {
           text,
+          timestamp,
           clientMutationId: tempID++,
         },
       },
@@ -58,6 +62,7 @@ function commit(
         const id = 'client:newNote:' + tempID++;
         const node = store.create(id, 'Note');
         node.setValue(text, 'text');
+        node.setValue(timestamp, 'timestamp');
         node.setValue(id, 'id');
         const newEdge = store.create(
           'client:newEdge:' + tempID++,

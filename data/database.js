@@ -13,7 +13,7 @@ const usersById = {
 
 // Mock timestamp
 function timeStamp() {
-  return new Date().toLocaleString('en-gb');
+  return new Date().toLocaleString('de-DE');
 }
 
 // Mock note data
@@ -22,15 +22,15 @@ const noteIdsByUser = {
   [VIEWER_ID]: [],
 };
 let nextNoteId = 0;
-addNote('Taste JavaScript', timeStamp());
-addNote('Take a note', timeStamp);
+addNote('Think in GraphQL', timeStamp());
+addNote('How should I approach testing Relay components?', timeStamp());
 
 export function addNote(text, timestamp) {
   const note = new Note();
   note.timestamp = timestamp;
   note.id = `${nextNoteId++}`;
   note.text = text;
-  note.username = VIEWER_ID;
+  note.userName = VIEWER_ID;
   notesById[note.id] = note;
   noteIdsByUser[VIEWER_ID].push(note.id);
   return note.id;

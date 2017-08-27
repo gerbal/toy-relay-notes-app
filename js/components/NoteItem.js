@@ -2,8 +2,9 @@ import RemoveNoteMutation from '../mutations/RemoveNoteMutation';
 import EditNoteMutation from '../mutations/EditNoteMutation';
 import NoteTextInput from './NoteTextInput';
 
-
 import React from 'react';
+import ReactDOM from 'react-dom';
+
 import { createFragmentContainer, graphql } from 'react-relay';
 import { StyleSheet, css } from 'aphrodite';
 
@@ -15,7 +16,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   chatTextWrapper: {
-    flex: ' 1 2 auto',
+    flex: '1 2 auto',
     backgroundColor: 'gainsboro',
     marginLeft: '1rem',
     display: 'inline-flex',
@@ -96,6 +97,7 @@ const IconButton = ({ text, onClick, className }) => {
   );
 };
 
+
 class NoteItem extends React.Component {
   state = {
     isEditing: false,
@@ -118,13 +120,13 @@ class NoteItem extends React.Component {
     EditNoteMutation.commit(
       this.props.relay.environment,
       text,
-      this.props.todo
+      this.props.note
     );
   };
   _removeNote() {
     RemoveNoteMutation.commit(
       this.props.relay.environment,
-      this.props.todo,
+      this.props.note,
       this.props.viewer
     );
   }
@@ -132,30 +134,40 @@ class NoteItem extends React.Component {
     this.setState({ isEditing: shouldEdit });
   };
 
+  componentDidMount() {
+    //   Scroll new text Items into view
+    ReactDOM.findDOMNode(this).scrollIntoView();
+  }
+
   renderTextInput() {
     return (
       <NoteTextInput
         commitOnBlur={true}
-        initialValue={this.props.todo.text}
+        initialValue={this.props.note.text}
         onCancel={this._handleTextInputCancel}
         onDelete={this._handleTextInputDelete}
         onSave={this._handleTextInputSave}
       />
     );
   }
+
   render() {
     return (
       <div className={css(styles.chatItemWrapper)}>
         <div className={css(styles.chatItemRow)}>
           <div className={css(styles.chatAvatar)}>
-            this.props.noteItem.userName
+            {this.props.note.userName}
           </div>
           <div className={css(styles.chatTextWrapper)}>
             <div className={css(styles.chatTextWrapperArrow)} />
             <div className={css(styles.chatItemText)}>
-              <span className={css(styles.chatItemTextText)}>
-                {this.props.noteItem.text}
-              </span>
+              <span
+                  className={css(styles.chatItemTextText)}
+                >
+                { this.state.isEditing 
+                ? this.renderTextInput() 
+                : this.props.note.text }
+                </span>
               <IconButton
                 text="🖉"
                 onClick={this._handleEditClick}
@@ -171,7 +183,7 @@ class NoteItem extends React.Component {
         </div>
         <div className={css(styles.chatItemRow)}>
           <div className={css(styles.chatItemTimestamp)}>
-            {this.propse.noteItem.timestamp}
+            {this.props.note.timestamp}
           </div>
         </div>
       </div>

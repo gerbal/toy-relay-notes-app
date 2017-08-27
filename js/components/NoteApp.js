@@ -22,12 +22,9 @@ const styles = StyleSheet.create({
     overflow: 'auto',
   },
   itemCounter: {
-    // top: 0,
-    // position: 'relative',
     flex: '0 1 auto',
     paddingLeft: '0.2rem',
     backgroundColor: 'grey',
-    alignSelf: 'flex-start'
   }
 });
 
@@ -36,6 +33,7 @@ class NoteApp extends React.Component {
     AddNoteMutation.commit(
       this.props.relay.environment,
       text,
+      new Date().toLocaleString('de-DE'),
       this.props.viewer
     );
   };
@@ -49,7 +47,7 @@ class NoteApp extends React.Component {
         <NoteTextInput
           autoFocus={true}
           onSave={this._handleTextInputSave}
-          placeholder="What needs to be done?"
+          placeholder="Whatcha thinkin' 'bout?"
         />
       </div>
     );

@@ -37,7 +37,7 @@ function commit(
       variables: {
         input: {text, id: note.id},
       },
-      optimisticResponse: () => getOptimisticResponse(text, note),
+      optimisticResponse: getOptimisticResponse(text, note),
     }
   );
 }
