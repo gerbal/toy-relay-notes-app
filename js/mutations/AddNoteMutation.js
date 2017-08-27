@@ -1,15 +1,3 @@
-/**
- * This file provided by Facebook is for non-commercial testing and evaluation
- * purposes only.  Facebook reserves all rights not expressly granted.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
- * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
 import {
   commitMutation,
   graphql,
@@ -17,13 +5,12 @@ import {
 import {ConnectionHandler} from 'relay-runtime';
 
 const mutation = graphql`
-  mutation AddTodoMutation($input: AddTodoInput!) {
-    addTodo(input:$input) {
-      todoEdge {
+  mutation AddNoteMutation($input: AddNoteInput!) {
+    addNote(input:$input) {
+      noteEdge {
         __typename
         cursor
         node {
-          complete
           id
           text
         }
@@ -40,7 +27,7 @@ function sharedUpdater(store, user, newEdge) {
   const userProxy = store.get(user.id);
   const conn = ConnectionHandler.getConnection(
     userProxy,
-    'TodoList_todos',
+    'NoteList_notes',
   );
   ConnectionHandler.insertEdgeAfter(conn, newEdge);
 }
@@ -63,18 +50,18 @@ function commit(
         },
       },
       updater: (store) => {
-        const payload = store.getRootField('addTodo');
-        const newEdge = payload.getLinkedRecord('todoEdge');
+        const payload = store.getRootField('addNote');
+        const newEdge = payload.getLinkedRecord('noteEdge');
         sharedUpdater(store, user, newEdge);
       },
       optimisticUpdater: (store) => {
-        const id = 'client:newTodo:' + tempID++;
-        const node = store.create(id, 'Todo');
+        const id = 'client:newNote:' + tempID++;
+        const node = store.create(id, 'Note');
         node.setValue(text, 'text');
         node.setValue(id, 'id');
         const newEdge = store.create(
           'client:newEdge:' + tempID++,
-          'TodoEdge',
+          'NoteEdge',
         );
         newEdge.setLinkedRecord(node, 'node');
         sharedUpdater(store, user, newEdge);

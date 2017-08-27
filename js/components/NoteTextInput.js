@@ -1,24 +1,23 @@
-/**
- * This file provided by Facebook is for non-commercial testing and evaluation
- * purposes only.  Facebook reserves all rights not expressly granted.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
- * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-const PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
+import { StyleSheet, css } from 'aphrodite';
 
 const ENTER_KEY_CODE = 13;
 const ESC_KEY_CODE = 27;
 
-export default class TodoTextInput extends React.Component {
+const styles = StyleSheet.create({
+  chatInput: {
+    marginTop: '0.5rem',
+    maxWidth: '100%',
+  },
+  textInput: {
+    width: '100%',
+    boxSizing: 'border-box',
+  },
+});
+
+export default class ChatTextInput extends React.Component {
   static defaultProps = {
     commitOnBlur: false,
   };
@@ -46,7 +45,7 @@ export default class TodoTextInput extends React.Component {
       this.props.onCancel();
     } else if (newText !== '') {
       this.props.onSave(newText);
-      this.setState({text: ''});
+      this.setState({ text: '' });
     }
   };
   _handleBlur = () => {
@@ -54,26 +53,29 @@ export default class TodoTextInput extends React.Component {
       this._commitChanges();
     }
   };
-  _handleChange = (e) => {
-    this.setState({text: e.target.value});
+  _handleChange = e => {
+    this.setState({ text: e.target.value });
   };
-  _handleKeyDown = (e) => {
+  _handleKeyDown = e => {
     if (this.props.onCancel && e.keyCode === ESC_KEY_CODE) {
       this.props.onCancel();
     } else if (e.keyCode === ENTER_KEY_CODE) {
       this._commitChanges();
     }
   };
+
   render() {
     return (
-      <input
-        className={this.props.className}
-        onBlur={this._handleBlur}
-        onChange={this._handleChange}
-        onKeyDown={this._handleKeyDown}
-        placeholder={this.props.placeholder}
-        value={this.state.text}
-      />
+      <div className={css(styles.chatInput)}>
+        <input
+          className={css(styles.textInput)}
+          onBlur={this._handleBlur}
+          onChange={this._handleChange}
+          onKeyDown={this._handleKeyDown}
+          placeholder={this.props.placeholder}
+          value={this.state.text}
+        />
+      </div>
     );
   }
 }

@@ -1,16 +1,4 @@
-/**
- * This file provided by Facebook is for non-commercial testing and evaluation
- * purposes only.  Facebook reserves all rights not expressly granted.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
- * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
-export class Todo {}
+export class Note {}
 export class User {}
 
 // Mock authenticated ID
@@ -23,40 +11,38 @@ const usersById = {
   [VIEWER_ID]: viewer,
 };
 
-// Mock todo data
-const todosById = {};
-const todoIdsByUser = {
+// Mock timestamp
+function timeStamp() {
+  return new Date().toLocaleString('en-gb');
+}
+
+// Mock note data
+const notesById = {};
+const noteIdsByUser = {
   [VIEWER_ID]: [],
 };
-let nextTodoId = 0;
-addTodo('Taste JavaScript', true);
-addTodo('Buy a unicorn', false);
+let nextNoteId = 0;
+addNote('Taste JavaScript', timeStamp());
+addNote('Take a note', timeStamp);
 
-export function addTodo(text, complete) {
-  const todo = new Todo();
-  todo.complete = !!complete;
-  todo.id = `${nextTodoId++}`;
-  todo.text = text;
-  todosById[todo.id] = todo;
-  todoIdsByUser[VIEWER_ID].push(todo.id);
-  return todo.id;
+export function addNote(text, timestamp) {
+  const note = new Note();
+  note.timestamp = timestamp;
+  note.id = `${nextNoteId++}`;
+  note.text = text;
+  note.username = VIEWER_ID;
+  notesById[note.id] = note;
+  noteIdsByUser[VIEWER_ID].push(note.id);
+  return note.id;
 }
 
-export function changeTodoStatus(id, complete) {
-  const todo = getTodo(id);
-  todo.complete = complete;
+export function getNote(id) {
+  return notesById[id];
 }
 
-export function getTodo(id) {
-  return todosById[id];
-}
-
-export function getTodos(status = 'any') {
-  const todos = todoIdsByUser[VIEWER_ID].map(id => todosById[id]);
-  if (status === 'any') {
-    return todos;
-  }
-  return todos.filter(todo => todo.complete === (status === 'completed'));
+export function getNotes() {
+  const notes = noteIdsByUser[VIEWER_ID].map(id => notesById[id]);
+  return notes;
 }
 
 export function getUser(id) {
@@ -67,32 +53,15 @@ export function getViewer() {
   return getUser(VIEWER_ID);
 }
 
-export function markAllTodos(complete) {
-  const changedTodos = [];
-  getTodos().forEach(todo => {
-    if (todo.complete !== complete) {
-      todo.complete = complete;
-      changedTodos.push(todo);
-    }
-  });
-  return changedTodos.map(todo => todo.id);
-}
-
-export function removeTodo(id) {
-  const todoIndex = todoIdsByUser[VIEWER_ID].indexOf(id);
-  if (todoIndex !== -1) {
-    todoIdsByUser[VIEWER_ID].splice(todoIndex, 1);
+export function removeNote(id) {
+  const noteIndex = noteIdsByUser[VIEWER_ID].indexOf(id);
+  if (noteIndex !== -1) {
+    noteIdsByUser[VIEWER_ID].splice(noteIndex, 1);
   }
-  delete todosById[id];
+  delete notesById[id];
 }
 
-export function removeCompletedTodos() {
-  const todosToRemove = getTodos().filter(todo => todo.complete);
-  todosToRemove.forEach(todo => removeTodo(todo.id));
-  return todosToRemove.map(todo => todo.id);
-}
-
-export function renameTodo(id, text) {
-  const todo = getTodo(id);
-  todo.text = text;
+export function editNote(id, text) {
+  const note = getNote(id);
+  note.text = text;
 }

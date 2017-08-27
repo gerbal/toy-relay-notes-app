@@ -1,4 +1,4 @@
-// Based on the TodoMVC Relay-Moderl example https://github.com/relayjs/relay-examples/tree/master/todo-modern
+// Based on the TodoMVC Relay-Modern example https://github.com/relayjs/relay-examples/tree/master/todo-modern
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -15,7 +15,7 @@ import {
   Store,
 } from 'relay-runtime';
 
-import TodoApp from './components/TodoApp';
+import NoteApp from './components/NoteApp';
 
 const mountNode = document.getElementById('root');
 
@@ -48,14 +48,14 @@ ReactDOM.render(
     query={graphql`
       query appQuery {
         viewer {
-          ...TodoApp_viewer
+          ...NoteApp_viewer
         }
       }
     `}
     variables={{}}
     render={({ error, props }) => {
       if (props) {
-        return <TodoApp viewer={props.viewer} />;
+        return <NoteApp viewer={props.viewer} />;
       } else {
         return <div>Loading</div>;
       }
