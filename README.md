@@ -2,7 +2,7 @@
 
 Most of this app is adapted from the [TodoMVC Modern Example](https://github.com/relayjs/relay-examples/tree/master/todo-modern) from the Relay team.
 
-This project uses a simple in memory GraphQL datastore, as such data will not be presisted between server restarts.
+This project uses a simple in memory GraphQL database, as such data will not be persisted between server restarts.
 
 ## Installation
 
@@ -43,7 +43,12 @@ npm start
 
 ## Testing
 
-That's something for tomorrow, ain't it. 
+Testing Relay-Modern apps appears to be largely undocumented. 
+
+There appear to be undocumented testing tools in react-relay. 
+
+For future reference see what can be learned from the [relay-modern tests](https://github.com/facebook/relay/tree/master/packages/react-relay/modern/__tests__).
+
 
 ## License
 

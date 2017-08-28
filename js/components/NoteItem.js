@@ -111,10 +111,6 @@ class NoteItem extends React.Component {
   _handleTextInputCancel = () => {
     this._setEditMode(false);
   };
-  _handleTextInputDelete = () => {
-    this._setEditMode(false);
-    this._removeNote();
-  };
   _handleTextInputSave = text => {
     this._setEditMode(false);
     EditNoteMutation.commit(
@@ -145,7 +141,6 @@ class NoteItem extends React.Component {
         commitOnBlur={true}
         initialValue={this.props.note.text}
         onCancel={this._handleTextInputCancel}
-        onDelete={this._handleTextInputDelete}
         onSave={this._handleTextInputSave}
       />
     );

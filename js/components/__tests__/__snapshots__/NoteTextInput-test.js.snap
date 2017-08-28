@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`calls onSave onBlur 1`] = `
+<NoteTextInput
+  commitOnBlur={true}
+  onSave={[Function]}
+>
+  <div
+    className="chatInput_1cxtnt9"
+  >
+    <input
+      className="textInput_14xfth8"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      value="blur"
+    />
+  </div>
+</NoteTextInput>
+`;
+
+exports[`calls onSave onBlur 2`] = `
+<NoteTextInput
+  commitOnBlur={true}
+  onSave={[Function]}
+>
+  <div
+    className="chatInput_1cxtnt9"
+  >
+    <input
+      className="textInput_14xfth8"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      value=""
+    />
+  </div>
+</NoteTextInput>
+`;
+
+exports[`calls onSave when receiving a Enter keypress 1`] = `
+<NoteTextInput
+  commitOnBlur={false}
+  onSave={[Function]}
+>
+  <div
+    className="chatInput_1cxtnt9"
+  >
+    <input
+      className="textInput_14xfth8"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      value="text"
+    />
+  </div>
+</NoteTextInput>
+`;
+
+exports[`calls onSave when receiving a Enter keypress 2`] = `
+<NoteTextInput
+  commitOnBlur={false}
+  onSave={[Function]}
+>
+  <div
+    className="chatInput_1cxtnt9"
+  >
+    <input
+      className="textInput_14xfth8"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      value=""
+    />
+  </div>
+</NoteTextInput>
+`;
+
+exports[`renders correctly 1`] = `
+<NoteTextInput
+  commitOnBlur={false}
+  onSave={[Function]}
+>
+  <div
+    className="chatInput_1cxtnt9"
+  >
+    <input
+      className="textInput_14xfth8"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      value=""
+    />
+  </div>
+</NoteTextInput>
+`;

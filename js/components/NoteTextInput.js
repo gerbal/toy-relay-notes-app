@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class ChatTextInput extends React.Component {
+export default class NoteTextInput extends React.Component {
   static defaultProps = {
     commitOnBlur: false,
   };
@@ -26,7 +26,6 @@ export default class ChatTextInput extends React.Component {
     commitOnBlur: PropTypes.bool.isRequired,
     initialValue: PropTypes.string,
     onCancel: PropTypes.func,
-    onDelete: PropTypes.func,
     onSave: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
   };
@@ -34,14 +33,14 @@ export default class ChatTextInput extends React.Component {
     isEditing: false,
     text: this.props.initialValue || '',
   };
+  
   componentDidMount() {
-    ReactDOM.findDOMNode(this.textInput).focus();
+    this.textInput.focus();
   }
+
   _commitChanges = () => {
     const newText = this.state.text.trim();
-    if (this.props.onDelete && newText === '') {
-      this.props.onDelete();
-    } else if (this.props.onCancel && newText === this.props.initialValue) {
+    if (this.props.onCancel && newText === this.props.initialValue) {
       this.props.onCancel();
     } else if (newText !== '') {
       this.props.onSave(newText);
